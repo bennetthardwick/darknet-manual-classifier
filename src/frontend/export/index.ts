@@ -31,7 +31,7 @@ function getBox(rectangle: Path.Rectangle): darknetBox {
   return {
     xmin: Math.min(rectangle.bounds.topLeft.x, rectangle.bounds.bottomRight.x),
     xmax: Math.max(rectangle.bounds.topLeft.x, rectangle.bounds.bottomRight.x),
-    ymin: Math.max(rectangle.bounds.topLeft.y, rectangle.bounds.bottomRight.y),
+    ymin: Math.min(rectangle.bounds.topLeft.y, rectangle.bounds.bottomRight.y),
     ymax: Math.max(rectangle.bounds.topLeft.y, rectangle.bounds.bottomRight.y)
   }
 }
@@ -73,6 +73,8 @@ function convert(size: darknetSize, box: darknetBox): darknetRect {
 
   y *= dh;
   h *= dh;
+
+  console.log(dh);
 
   return { x, w, y, h };
 }

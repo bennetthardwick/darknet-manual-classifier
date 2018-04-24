@@ -14,7 +14,8 @@ export const loadPaper = () => {
   let currentIndex = 0;
   let colour: string = "red";
   let begin: Point;
-
+  let currentUrl: string = "";
+  let isFile: boolean = false;
   let dragging: boolean = false;
 
   let canvas: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById('canvas');
@@ -127,19 +128,23 @@ export const loadPaper = () => {
 
     image.onload = function() {
       raster = createRaster(image);
+      rectangles.forEach(x => x.remove());
+      currentIndex = 0;
+      rectangles = [];
+      currentUrl = url;
     }
   }
 
   document.getElementById('save').addEventListener('click', () => {
-
-    console.log('clicked');
-
-    save((document.getElementById('label') as HTMLInputElement).value, rectangles, raster, 'http://images.clipartpanda.com/cliparts-images-KTnEXXbTq.jpeg', false);
+    save((document.getElementById('label') as HTMLInputElement).value, rectangles, raster, currentUrl, isFile);
+    rectangles.forEach(x => x.remove());
+    currentIndex = 0;
+    rectangles = [];
   });
 
-  document.getElementById('urlImage').click = () => {
-
-  }
+  document.getElementById('load').addEventListener('click', () => {
+    loadNewImage((document.getElementById('urlImage') as HTMLInputElement).value);
+  });
 
   document.getElementById('randomImage').click = () => {
 

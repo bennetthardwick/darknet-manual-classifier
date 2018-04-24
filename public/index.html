@@ -19,9 +19,20 @@
   
         .form-group {
           display: inline-block;
-          width: 19%;
           vertical-align: top;
-          background-color: red;
+          width: 39%;
+        }
+
+        input {
+          font-size: 16pt;
+          width: 50%;
+          margin: 10px;
+        }
+
+        button {
+          font-size: 16pt;
+          margin: 10px;
+
         }
 
       </style>
@@ -32,13 +43,18 @@
    </head>
    
    <body>
-      <img id="image" src="http://images.clipartpanda.com/cliparts-images-KTnEXXbTq.jpeg" style="display:none" />
+      <img id="image" src="" style="display:none" />
       <span id="listen">
       <canvas id="canvas" resize></canvas>
       </span>
-      <span style="vertical-align: top"><input type="text" id="label" style="vertical-align: top"><button id="save" style="vertical-align: top">SUBMIT</button></span>
-      <span style="vertical-align: top"><input type="text" id="urlImage" style="vertical-align: top"><button id="load" style="vertical-align: top">LOAD</button></span>
-      <span style="vertical-align: top"><button id="randomImage" style="vertical-align: top">RANDOM IMAGE</button></span>
+      <div class="form-group">
+        <span style="vertical-align: top"><input type="text" placeholder="Feature Label" id="label" style="vertical-align: top"><button id="save" style="vertical-align: top">SUBMIT</button></span>
+        <span style="vertical-align: top"><input type="text" placeholder="Url to Load" id="urlImage" style="vertical-align: top"><button id="load" style="vertical-align: top">LOAD</button></span>
+        <span style="vertical-align: top"><button id="randomImage" style="vertical-align: top">RANDOM IMAGE</button></span>
+        <p style="font-size: 12pt">How to use this bad boy: 
+          Arrow keys can be used for moving around the image. [ and ] keys are used for zooming in and out, respectively. Load an image in the load section and press load. Write a label in the label section and draw a bunch of squares around things that are that label. When you're finished press submit and then load in another image or start selecting things with different labels.
+        </p>
+      </div>
 
       <script type="text/javascript" src="bundle.js"></script>
    </body>
