@@ -32,6 +32,7 @@
     "@types/electron": "^1.6.10",
     "@types/node": "^9.6.6",
     "@types/paper": "^0.9.15",
+    "@types/request": "^2.47.0",
     "typescript": "^2.8.3",
     "webpack-cli": "^2.0.15"
   }

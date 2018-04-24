@@ -134,7 +134,7 @@ export const loadPaper = () => {
 
     console.log('clicked');
 
-    save((document.getElementById('label') as HTMLInputElement).value, rectangles, raster, './2007_000027.jpg', true);
+    save((document.getElementById('label') as HTMLInputElement).value, rectangles, raster, 'http://images.clipartpanda.com/cliparts-images-KTnEXXbTq.jpeg', false);
   });
 
   document.getElementById('urlImage').click = () => {

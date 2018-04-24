@@ -25,11 +25,14 @@
         }
 
       </style>
-      <script> const fs = require('fs') </script>
+      <script> 
+        const fs = require('fs');
+        const request = require('request');
+      </script>
    </head>
    
    <body>
-      <img id="image" src="./2007_000027.jpg" style="display:none" />
+      <img id="image" src="http://images.clipartpanda.com/cliparts-images-KTnEXXbTq.jpeg" style="display:none" />
       <span id="listen">
       <canvas id="canvas" resize></canvas>
       </span>

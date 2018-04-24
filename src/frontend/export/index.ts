@@ -1,4 +1,4 @@
-import { getDirectories, getFiles, getFilesWithoutSource, createFile, copyFile } from './files';
+import { getDirectories, getFiles, getFilesWithoutSource, createFile, copyFile, downloadFile } from './files';
 import { Path, Raster } from 'paper';
 import { join } from 'path';
 import * as fs from 'fs';
@@ -94,17 +94,11 @@ function writeRectanglesToFile(imageUrl: string, features: darknetFeature[], onD
   });
 
   createFile('./data/features/' + ("000000000000" + (latestIndex).toString()).slice(-12) + '.txt', lines.join('\n'));
-
   
-  if (onDisk) {
+  let file = imageUrl.split('/')[imageUrl.split('/').length - 1];
+  let extension = file.split('.')[file.split('.').length - 1];
+  let imageDest =  './data/images/' + ("000000000000" + (latestIndex).toString()).slice(-12) + '.' + extension;
 
-    let file = imageUrl.split('/')[imageUrl.split('/').length - 1];
-    let extension = file.split('.')[file.split('.').length - 1];
-
-    copyFile('./public/' + imageUrl, './data/images/' + ("000000000000" + (latestIndex).toString()).slice(-12) + '.' + extension);
-
-  }
-
-
-
+  if (onDisk) copyFile('./public/' + imageUrl, imageDest);
+  else downloadFile(imageUrl, imageDest);
 }

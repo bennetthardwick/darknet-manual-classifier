@@ -1,6 +1,8 @@
 import { lstatSync, readdirSync, createReadStream, createWriteStream, writeFileSync } from 'fs';
 import { join } from 'path';
 
+import { get } from 'request';
+
 export const isDirectory = (source) => lstatSync(source).isDirectory();
 export const isFile = (source) => !isDirectory(source);
 export const isFileFactory = (source) => (file) => !isDirectory(join(source, file)); 
@@ -10,6 +12,14 @@ export const getFilesWithoutSource = (source) =>readdirSync(source).filter(isFil
 
 export function createFile(source, body) {
   writeFileSync(source, body);
+}
+
+export function downloadFile(source, target) {
+  get(source)
+  .on('error', function(err) {
+    console.error(err)
+  })
+  .pipe(createWriteStream(target))
 }
 
 export function copyFile(source, target) {
