@@ -1,4 +1,4 @@
-import { getDirectories, getFiles, getFilesWithoutSource } from './files';
+import { getDirectories, getFiles, getFilesWithoutSource, createFile, copyFile } from './files';
 import { Path, Raster } from 'paper';
 import { join } from 'path';
 import * as fs from 'fs';
@@ -44,6 +44,9 @@ function getSize(image: Raster): darknetSize {
 }
 
 export function save(feature: string, rectangles: Path.Rectangle[], image: Raster, url: string, onDisk?: boolean) {
+
+  console.log('saving');
+
   if (typeof onDisk === 'undefined') onDisk = false;
 
   let features: darknetFeature[] = [];
@@ -74,12 +77,29 @@ function convert(size: darknetSize, box: darknetBox): darknetRect {
   return { x, w, y, h };
 }
 
+function createDarknetString(feature: darknetFeature): string {
+  return `${feature.label} ${feature.box.x} ${feature.box.y} ${feature.box.w} ${feature.box.h}`;
+}
+
 function writeRectanglesToFile(imageUrl: string, features: darknetFeature[], onDisk: boolean): void { 
-  if (onDisk) {
-    let files = getFilesWithoutSource(join(__dirname, '..', 'data', 'features')).sort();
-    let latestIndex = parseInt(files[files.length - 1].split('.txt')[0]);
 
 
+  let files = getFilesWithoutSource('./data/features').sort();
+  let latestIndex = parseInt(files[files.length - 1].split('.txt')[0]) + 1;
 
-  }
+  features.forEach((feature, i) => {
+    createFile('./data/features/' + ("000000000000" + (latestIndex + i).toString()).slice(-12) + '.txt', createDarknetString(feature));
+
+    if (onDisk) {
+
+      let file = imageUrl.split('/')[imageUrl.split('/').length - 1];
+      let extension = file.split('.')[file.split('.').length - 1];
+
+      copyFile('./public/' + imageUrl, './data/images/' + ("000000000000" + (latestIndex + i).toString()).slice(-12) + '.' + extension);
+
+    }
+
+  });
+
+
 }

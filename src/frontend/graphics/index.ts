@@ -1,4 +1,6 @@
 import { setup, view, Raster, Path, Point, Tool, Color, Rectangle, Size } from 'paper';
+import { save } from '../export';
+
 import * as gen from 'color-generator';
 
 function createRaster(element: HTMLElement): Raster {
@@ -10,7 +12,7 @@ function createRaster(element: HTMLElement): Raster {
 export const loadPaper = () => {
   let rectangles: Path.Rectangle[] = [];
   let currentIndex = 0;
-  let colour: string;
+  let colour: string = "red";
   let begin: Point;
 
   let dragging: boolean = false;
@@ -31,7 +33,7 @@ export const loadPaper = () => {
     dragging = true;
 
     begin = event.point;
-    colour = gen().hexString();
+    //colour = gen().hexString();
     rectangles[currentIndex] = new Path.Rectangle(begin, event.point);
     rectangles[currentIndex].strokeColor = colour;
     rectangles[currentIndex].strokeWidth = 3;
@@ -128,9 +130,12 @@ export const loadPaper = () => {
     }
   }
 
-  document.getElementById('save').click = () => {
-    
-  }
+  document.getElementById('save').addEventListener('click', () => {
+
+    console.log('clicked');
+
+    save((document.getElementById('label') as HTMLInputElement).value, rectangles, raster, './2007_000027.jpg', true);
+  });
 
   document.getElementById('urlImage').click = () => {
 
