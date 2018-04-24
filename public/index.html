@@ -2,11 +2,40 @@
 <html>
    <head>
       <meta charset = "UTF-8">
-      <title>Hello World!</title>
+      <title>Image Classifier</title>
+      <style>
+        html, body {
+          height: 100%;
+          width: 100%;
+          padding: 0;
+          margin: 0;
+          overflow: hidden;
+        }
+        #canvas {
+          width: 60%;
+          height: 100%;
+          display: inline-block;
+        }
+  
+        .form-group {
+          display: inline-block;
+          width: 19%;
+          vertical-align: top;
+          background-color: red;
+        }
+
+      </style>
    </head>
    
    <body>
+      <img id="image" src="./2007_000027.jpg" style="display:none" />
+      <span id="listen">
       <canvas id="canvas" resize></canvas>
+      </span>
+      <span style="vertical-align: top"><input type="text" id="label" style="vertical-align: top"><button id="save" style="vertical-align: top">SUBMIT</button></span>
+      <span style="vertical-align: top"><input type="text" id="urlImage" style="vertical-align: top"><button id="load" style="vertical-align: top">LOAD</button></span>
+      <span style="vertical-align: top"><button id="randomImage" style="vertical-align: top">RANDOM IMAGE</button></span>
+
       <script type="text/javascript" src="bundle.js"></script>
    </body>
 </html>
