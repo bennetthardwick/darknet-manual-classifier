@@ -87,19 +87,24 @@ function writeRectanglesToFile(imageUrl: string, features: darknetFeature[], onD
   let files = getFilesWithoutSource('./data/features').sort();
   let latestIndex = parseInt(files[files.length - 1].split('.txt')[0]) + 1;
 
-  features.forEach((feature, i) => {
-    createFile('./data/features/' + ("000000000000" + (latestIndex + i).toString()).slice(-12) + '.txt', createDarknetString(feature));
+  let lines: string[] = [];
 
-    if (onDisk) {
-
-      let file = imageUrl.split('/')[imageUrl.split('/').length - 1];
-      let extension = file.split('.')[file.split('.').length - 1];
-
-      copyFile('./public/' + imageUrl, './data/images/' + ("000000000000" + (latestIndex + i).toString()).slice(-12) + '.' + extension);
-
-    }
-
+  features.forEach((feature) => {
+    lines.push(createDarknetString(feature));
   });
+
+  createFile('./data/features/' + ("000000000000" + (latestIndex).toString()).slice(-12) + '.txt', lines.join('\n'));
+
+  
+  if (onDisk) {
+
+    let file = imageUrl.split('/')[imageUrl.split('/').length - 1];
+    let extension = file.split('.')[file.split('.').length - 1];
+
+    copyFile('./public/' + imageUrl, './data/images/' + ("000000000000" + (latestIndex).toString()).slice(-12) + '.' + extension);
+
+  }
+
 
 
 }

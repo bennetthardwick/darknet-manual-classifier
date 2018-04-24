@@ -33,7 +33,7 @@ export const loadPaper = () => {
     dragging = true;
 
     begin = event.point;
-    //colour = gen().hexString();
+    colour = gen().hexString();
     rectangles[currentIndex] = new Path.Rectangle(begin, event.point);
     rectangles[currentIndex].strokeColor = colour;
     rectangles[currentIndex].strokeWidth = 3;
