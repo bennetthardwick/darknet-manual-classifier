@@ -1,0 +1,31 @@
+{
+  "name": "darknet-manual-classifier",
+  "version": "1.0.0",
+  "description": "A tool for trawling photo websites, manually classifying images, and exporting to a darknet readable format.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/electron/dist/electron dist/index.js",
+    "build": "./node_modules/typescript/bin/tsc",
+    "build:watch": "./node_modules/typescript/bin/tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bennetthardwick/darknet-manual-classifier.git"
+  },
+  "author": "Bennett Hardwick <bennetthardwick@icloud.com> (bennetthardwick.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bennetthardwick/darknet-manual-classifier/issues"
+  },
+  "homepage": "https://github.com/bennetthardwick/darknet-manual-classifier#readme",
+  "dependencies": {
+    "@types/node": "^9.6.6",
+    "electron": "^1.8.4",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@types/electron": "^1.6.10",
+    "typescript": "^2.8.3"
+  }
+}
