@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "lib": ["es6", "dom"],
-    "module": "commonjs", 
     "target": "es5", 
     "moduleResolution": "node",
     "declaration": true,
@@ -11,6 +10,6 @@
     "types" : ["node"]
   },
   "include": [
-    "src/**/*.ts"
-  ]
+    "src/backend/**/*.ts"
+  ], 
 }
