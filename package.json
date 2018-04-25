@@ -33,6 +33,8 @@
     "@types/node": "^9.6.6",
     "@types/paper": "^0.9.15",
     "@types/request": "^2.47.0",
+    "awesome-typescript-loader": "^5.0.0",
+    "source-map-loader": "^0.2.3",
     "typescript": "^2.8.3",
     "webpack": "^4.6.0",
     "webpack-cli": "^2.0.15"
