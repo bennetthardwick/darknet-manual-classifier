@@ -48,9 +48,21 @@
       <canvas id="canvas" resize></canvas>
       </span>
       <div class="form-group">
-        <span style="vertical-align: top"><input type="text" placeholder="Feature Label" id="label" style="vertical-align: top"><button id="save" style="vertical-align: top">SUBMIT</button></span>
+        <span style="vertical-align: top"><button id="save" style="vertical-align: top">SUBMIT</button></span>
         <span style="vertical-align: top"><input type="text" placeholder="Url to Load" id="urlImage" style="vertical-align: top"><button id="load" style="vertical-align: top">LOAD</button></span>
         <span style="vertical-align: top"><button id="randomImage" style="vertical-align: top">RANDOM IMAGE</button></span>
+
+				<span style="vertical-align: top">
+					<form>
+					<input type="radio" name="type" value="rubbish" checked>Rubbish
+					<input type="radio" name="type" value="bottle">Bottle
+					<input type="radio" name="type" value="paper">Paper
+					<input type="radio" name="type" value="plastic">Plastic
+					<input type="radio" name="type" value="bag">Bag
+					<input type="radio" name="type" value="pollution">Pollution
+					</form>
+				</span>
+
         <p style="font-size: 12pt">How to use this bad boy: 
           Arrow keys can be used for moving around the image. [ and ] keys are used for zooming in and out, respectively. Load an image in the load section and press load. Write a label in the label section and draw a bunch of squares around things that are that label. When you're finished press submit and then load in another image or start selecting things with different labels.
         </p>

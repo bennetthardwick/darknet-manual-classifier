@@ -3,6 +3,15 @@ import { Path, Raster } from 'paper';
 import { join } from 'path';
 import * as fs from 'fs';
 
+let types = [
+  "rubbish",
+	"bottle",
+	"paper",
+	"plastic",
+	"bag",
+	"pollution"
+]
+
 interface darknetSize {
   width: number;
   height: number;
@@ -43,7 +52,7 @@ function getSize(image: Raster): darknetSize {
   }
 }
 
-export function save(feature: string, rectangles: Path.Rectangle[], image: Raster, url: string, onDisk?: boolean) {
+export function save(rectangles: { rect: Path.Rectangle, label: string }[], image: Raster, url: string, onDisk?: boolean) {
 
   console.log('saving');
 
@@ -52,7 +61,7 @@ export function save(feature: string, rectangles: Path.Rectangle[], image: Raste
   let features: darknetFeature[] = [];
 
   rectangles.forEach(rectangle => {
-    features.push({ label: feature, box: convert(getSize(image), getBox(rectangle))});
+    features.push({ label: rectangle.label, box: convert(getSize(image), getBox(rectangle.rect))});
   });
 
   writeRectanglesToFile(url, features, onDisk);
@@ -80,7 +89,7 @@ function convert(size: darknetSize, box: darknetBox): darknetRect {
 }
 
 function createDarknetString(feature: darknetFeature): string {
-  return `${feature.label} ${feature.box.x} ${feature.box.y} ${feature.box.w} ${feature.box.h}`;
+  return `${((types.indexOf(feature.label) >= 0) ? types.indexOf(feature.label) : types.length)} ${feature.box.x} ${feature.box.y} ${feature.box.w} ${feature.box.h}`;
 }
 
 function writeRectanglesToFile(imageUrl: string, features: darknetFeature[], onDisk: boolean): void { 

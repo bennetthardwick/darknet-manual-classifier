@@ -9,14 +9,21 @@ function createRaster(element: HTMLElement): Raster {
   return raster;
 }
 
+interface darknetPaper {
+  rect?: Path.Rectangle;
+  label?: string;
+}
+
 export const loadPaper = () => {
-  let rectangles: Path.Rectangle[] = [];
+  let rectangles: darknetPaper[] = [];
   let currentIndex = 0;
   let colour: string = "red";
   let begin: Point;
   let currentUrl: string = "";
   let isFile: boolean = false;
   let dragging: boolean = false;
+
+	let currentLabel = "rubbish";
 
   let canvas: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById('canvas');
 
@@ -34,10 +41,10 @@ export const loadPaper = () => {
     dragging = true;
 
     begin = event.point;
-    colour = gen().hexString();
-    rectangles[currentIndex] = new Path.Rectangle(begin, event.point);
-    rectangles[currentIndex].strokeColor = colour;
-    rectangles[currentIndex].strokeWidth = 3;
+    colour = getColour(currentLabel);
+    rectangles[currentIndex] = { rect: new Path.Rectangle(begin, event.point), label: currentLabel };
+    rectangles[currentIndex].rect.strokeColor = colour;
+    rectangles[currentIndex].rect.strokeWidth = 3;
   }
 
   view.onMouseDrag = function(event) {
@@ -62,10 +69,10 @@ export const loadPaper = () => {
       end.y = raster.height - 1;
     }
 
-    rectangles[currentIndex].remove();
-    rectangles[currentIndex] = new Path.Rectangle(begin, end);
-    rectangles[currentIndex].strokeColor = colour;
-    rectangles[currentIndex].strokeWidth = 3;
+    rectangles[currentIndex].rect.remove();
+    rectangles[currentIndex].rect = new Path.Rectangle(begin, end);
+    rectangles[currentIndex].rect.strokeColor = colour;
+    rectangles[currentIndex].rect.strokeWidth = 3;
   }
 
   view.onMouseUp = function(event) {
@@ -93,7 +100,7 @@ export const loadPaper = () => {
       case "ArrowDown":
         view.center = new Point(view.center.x, view.center.y - diff);
       break;
-
+      
       case "]":
         view.zoom += 0.01;
       break;
@@ -110,7 +117,7 @@ export const loadPaper = () => {
   document.addEventListener('keypress', (event) => {
     if (event.ctrlKey && event.key === 'z' && currentIndex > 0) {
       currentIndex--;
-      rectangles[currentIndex].remove();
+      rectangles[currentIndex].rect.remove();
       delete rectangles[currentIndex];
       return;
     }
@@ -128,7 +135,7 @@ export const loadPaper = () => {
 
     image.onload = function() {
       raster = createRaster(image);
-      rectangles.forEach(x => x.remove());
+      rectangles.forEach(x => x.rect.remove());
       currentIndex = 0;
       rectangles = [];
       currentUrl = url;
@@ -136,13 +143,17 @@ export const loadPaper = () => {
   }
 
   document.getElementById('save').addEventListener('click', () => {
-    save((document.getElementById('label') as HTMLInputElement).value, rectangles, raster, currentUrl, isFile);
-    rectangles.forEach(x => x.remove());
+
+    if (rectangles.length <= 0) return;
+
+    save(<any> rectangles, raster, currentUrl, isFile);
+    rectangles.forEach(x => x.rect.remove());
     currentIndex = 0;
     rectangles = [];
   });
 
   document.getElementById('load').addEventListener('click', () => {
+    if ((document.getElementById('urlImage') as HTMLInputElement).value.replace(' ', '').split('').length <= 0) return;
     loadNewImage((document.getElementById('urlImage') as HTMLInputElement).value);
   });
 
@@ -150,5 +161,29 @@ export const loadPaper = () => {
 
   }
 
+	Array.from(document.querySelectorAll('input[name="type"]')).forEach(x => {
+		x.addEventListener('change', () => {
+			let radio = <HTMLInputElement> x;
+			currentLabel = radio.value;
+		});
+	});
+
+}
+
+function getColour(label: string): string {
+	switch(label) {
+		case "rubbish":
+			return "#9932CC";
+		case "bottle":
+			return "#00FF00";
+		case "paper":
+			return "#FF8C00";
+		case "plastic":
+			return "#4169E1";
+		case "bag":
+			return "#0000CD";
+		case "pollution":
+			return "#FF1493";
+	}
 }
 
