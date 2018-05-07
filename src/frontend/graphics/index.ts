@@ -183,7 +183,9 @@ function getColour(label: string): string {
 		case "bag":
 			return "#0000CD";
 		case "pollution":
-			return "#FF1493";
+      return "#FF1493";
+    case "cigarette":
+      return "#458588";
 	}
 }
 

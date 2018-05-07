@@ -9,7 +9,8 @@ let types = [
 	"paper",
 	"plastic",
 	"bag",
-	"pollution"
+  "pollution",
+  "cigarette"
 ]
 
 interface darknetSize {
@@ -95,7 +96,7 @@ function createDarknetString(feature: darknetFeature): string {
 function writeRectanglesToFile(imageUrl: string, features: darknetFeature[], onDisk: boolean): void { 
 
 
-  let files = getFilesWithoutSource('./data/features').sort();
+  let files = getFilesWithoutSource('./data/labels').sort();
   let latestIndex = parseInt(files[files.length - 1].split('.txt')[0]) + 1;
 
   let lines: string[] = [];
@@ -104,7 +105,7 @@ function writeRectanglesToFile(imageUrl: string, features: darknetFeature[], onD
     lines.push(createDarknetString(feature));
   });
 
-  createFile('./data/features/' + ("000000000000" + (latestIndex).toString()).slice(-12) + '.txt', lines.join('\n'));
+  createFile('./data/labels/' + ("000000000000" + (latestIndex).toString()).slice(-12) + '.txt', lines.join('\n'));
   
   let file = imageUrl.split('/')[imageUrl.split('/').length - 1];
   let extension = file.split('.')[file.split('.').length - 1];
